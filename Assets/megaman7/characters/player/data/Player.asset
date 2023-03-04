@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b760a07e09d8d84282a2411aec2a559, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  speed: 10
-  jumpSpeed: 10
+  speed: 2
+  jumpSpeed: 350
   currentState: 0
   previousState: 0
   currentAnimation: {fileID: 7400000, guid: 9954517a4c3d1ed4e8a0975d8f5efa0b, type: 2}
