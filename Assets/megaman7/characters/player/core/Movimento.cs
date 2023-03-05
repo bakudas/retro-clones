@@ -31,8 +31,6 @@ public class Movimento : MonoBehaviour
         rb = GetComponentInParent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
         
-        Debug.Log(playerData.speed);
-        Debug.Log(rb);
     }
 
     // Update is called once per frame
@@ -48,9 +46,8 @@ public class Movimento : MonoBehaviour
 
         rb.velocity = new Vector2( moveX, rb.velocity.y);
         
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            Debug.Log("PULEIE");
             rb.AddForce(Vector2.up * playerData.jumpSpeed);
             _animator.SetBool("isJumping", true);
             isGrounded = false;
@@ -70,11 +67,9 @@ public class Movimento : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         GameObject chao = col.gameObject;
-        Debug.Log(chao);
         if (chao.CompareTag("floor"))
         {
             if (isFirstDrop) isFirstDrop = false;
-            Debug.Log("tou no chão bixo");
             isGrounded = true;
             _animator.SetBool("isFalling", false);
             _animator.SetBool("isJumping", false);
