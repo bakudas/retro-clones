@@ -20,6 +20,13 @@ public class Movimento : MonoBehaviour
     private bool isJumping = false;
     private bool isGrounded = false;
     private SpriteRenderer _spriteRenderer;
+    
+    // Jump vars
+    private float jumpSustain = 0.1f;
+    private float jumpCooldown = .25f;
+    private int jumpcount = 1;
+    private float jumpMixForce = 20f;
+    private float jumpMaxForce = 550f;
 
     // Start is called before the first frame update
     void Start()
@@ -45,10 +52,12 @@ public class Movimento : MonoBehaviour
         else isMoving = false;
 
         rb.velocity = new Vector2( moveX, rb.velocity.y);
-        
-        if (Input.GetButtonDown("Jump") && isGrounded)
+
+        jumpSustain = 0.1f;
+        if (Input.GetButton("Jump") && isGrounded)
         {
-            rb.AddForce(Vector2.up * playerData.jumpSpeed);
+            jumpSustain += 20f;
+            rb.AddForce(Vector2.up * Math.Clamp(playerData.jumpSpeed * jumpSustain, 20f, 200f));
             _animator.SetBool("isJumping", true);
             isGrounded = false;
         }
